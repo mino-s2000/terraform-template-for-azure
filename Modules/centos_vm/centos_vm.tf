@@ -22,7 +22,7 @@ resource "azurerm_virtual_machine" "centos_vm" {
   }
 
   storage_os_disk {
-    name = "${var.vm_name}-OS"
+    name = "${format("%s-OS", var.vm_name)}"
     managed_disk_type = "Standard_LRS"
     caching = "ReadWrite"
     create_option = "FromImage"
@@ -36,7 +36,7 @@ resource "azurerm_virtual_machine" "centos_vm" {
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
-      path = "/home/${var.admin_username}/.ssh/authorized_keys"
+      path = "${format("/home/%s/.ssh/authorized_keys", var.admin_username)}"
       key_data = "${var.ssh_key_data}"
     }
   }
