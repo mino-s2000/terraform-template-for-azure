@@ -53,7 +53,6 @@ variable "vm" {
 
   default = {
     name = "VM01"
-    addr = "10.0.0.4"
     size = "Standard_A1_v2"
     admin_username = "azureuser"
     admin_password = ""
