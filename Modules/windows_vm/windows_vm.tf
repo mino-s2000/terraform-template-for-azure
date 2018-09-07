@@ -3,7 +3,6 @@ variable "location" {}
 variable "vm_name" {}
 variable "vm_size" {}
 variable "nic_id" {}
-variable "os_disk_name" {}
 variable "admin_username" {}
 variable "admin_password" {}
 variable "blob_endpoint" {}
@@ -23,7 +22,7 @@ resource "azurerm_virtual_machine" "win_vm" {
   }
 
   storage_os_disk {
-    name = "${var.os_disk_name}"
+    name = "${format("%s-OS", var.vm_name)}"
     managed_disk_type = "Standard_LRS"
     caching = "ReadWrite"
     create_option = "FromImage"

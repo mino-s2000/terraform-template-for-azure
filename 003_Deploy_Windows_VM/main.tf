@@ -68,7 +68,7 @@ module "storage_vm_diag" {
 }
 
 module "vm" {
-  source = "./modules/centos_vm"
+  source = "./modules/windows_vm"
 
   rg_name = "${local.rg_name}"
   location = "${var.resource_group["location"]}"
