@@ -76,7 +76,7 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type = "LRS"
 }
 
-resource "azurerm_virtual_machine" "ubuntu_vm" {
+resource "azurerm_virtual_machine" "vm" {
   name = "${var.vm["name"]}"
   location = "${var.resource_group["location"]}"
   resource_group_name = "${local.rg_name}"
