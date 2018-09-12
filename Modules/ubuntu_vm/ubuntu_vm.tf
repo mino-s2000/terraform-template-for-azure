@@ -8,41 +8,42 @@ variable "ssh_key_data" {}
 variable "blob_endpoint" {}
 
 resource "azurerm_virtual_machine" "ubuntu_vm" {
-  name = "${var.vm_name}"
-  location = "${var.location}"
-  resource_group_name = "${var.rg_name}"
-  vm_size = "${var.vm_size}"
+  name                  = "${var.vm_name}"
+  location              = "${var.location}"
+  resource_group_name   = "${var.rg_name}"
+  vm_size               = "${var.vm_size}"
   network_interface_ids = ["${var.nic_id}"]
 
   storage_image_reference {
     publisher = "Canonical"
-    offer = "UbuntuServer"
-    sku = "18.04-LTS"
-    version = "latest"
+    offer     = "UbuntuServer"
+    sku       = "18.04-LTS"
+    version   = "latest"
   }
 
   storage_os_disk {
-    name = "${format("%s-OS", var.vm_name)}"
+    name              = "${format("%s-OS", var.vm_name)}"
     managed_disk_type = "Standard_LRS"
-    caching = "ReadWrite"
-    create_option = "FromImage"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
   }
 
   os_profile {
-    computer_name = "${var.vm_name}"
+    computer_name  = "${var.vm_name}"
     admin_username = "${var.admin_username}"
   }
 
   os_profile_linux_config {
     disable_password_authentication = true
+
     ssh_keys {
-      path = "${format("/home/%s/.ssh/authorized_keys", var.admin_username)}"
+      path     = "${format("/home/%s/.ssh/authorized_keys", var.admin_username)}"
       key_data = "${var.ssh_key_data}"
     }
   }
 
   boot_diagnostics {
-    enabled = true
+    enabled     = true
     storage_uri = "${var.blob_endpoint}"
   }
 }
